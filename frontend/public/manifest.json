@@ -1,0 +1,14 @@
+{
+  "name": "H&CO. Invoices",
+  "short_name": "Invoices",
+  "description": "H&CO. Invoice Management",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#F4F6FA",
+  "theme_color": "#185FA5",
+  "orientation": "any",
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}
