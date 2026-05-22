@@ -1,48 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
   <title>H&CO. Invoices</title>
-  <link rel="stylesheet" href="css/app.css" />
-  <link rel="manifest" href="manifest.json" />
-  <meta name="theme-color" content="#185FA5" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <link rel="stylesheet" href="css/app.css"/>
+  <link rel="manifest" href="manifest.json"/>
+  <meta name="theme-color" content="#185FA5"/>
+  <meta name="apple-mobile-web-app-capable" content="yes"/>
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
 </head>
 <body>
 
-<!-- ── TOAST ─────────────────────────────────────────────────────── -->
 <div id="toast"></div>
-
-<!-- ── SIDEBAR OVERLAY (mobile) ──────────────────────────────────── -->
 <div id="overlay" onclick="closeSidebar()"></div>
 
-<!-- ── APP SHELL ─────────────────────────────────────────────────── -->
-<div class="app" id="app">
-
-  <!-- SIDEBAR -->
+<div class="app">
   <aside class="sidebar" id="sidebar">
     <div class="sidebar-top">
       <div class="logo">H<span class="logo-amp">&</span>CO.<span class="logo-sub">invoices</span></div>
-      <button class="icon-btn sidebar-close" onclick="closeSidebar()" aria-label="Close menu">✕</button>
+      <button class="icon-btn sidebar-close" onclick="closeSidebar()">✕</button>
     </div>
-
     <nav class="nav">
-      <button class="nav-item active" data-view="new" onclick="navTo('new')">
-        <span class="nav-icon">＋</span> New invoice
-      </button>
-      <button class="nav-item" data-view="list" onclick="navTo('list')">
-        <span class="nav-icon">☰</span> All invoices
-      </button>
-      <button class="nav-item" data-view="dashboard" onclick="navTo('dashboard')">
-        <span class="nav-icon">◎</span> Dashboard
-      </button>
+      <button class="nav-item active" data-view="new" onclick="navTo('new')"><span class="nav-icon">＋</span> New Invoice</button>
+      <button class="nav-item" data-view="list" onclick="navTo('list')"><span class="nav-icon">☰</span> All Invoices</button>
+      <button class="nav-item" data-view="dashboard" onclick="navTo('dashboard')"><span class="nav-icon">◎</span> Dashboard</button>
     </nav>
-
     <div class="sidebar-section-label">RECENT</div>
     <div class="recent-list" id="recent-list"></div>
-
     <div class="sidebar-bottom">
       <div class="company-card">
         <div class="company-name">H&amp;CO.</div>
@@ -51,23 +36,16 @@
     </div>
   </aside>
 
-  <!-- MAIN -->
-  <main class="main" id="main">
-
-    <!-- Mobile top bar -->
+  <main class="main">
     <header class="topbar">
-      <button class="icon-btn" onclick="openSidebar()" aria-label="Open menu">
-        <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-          <rect y="2" width="18" height="2" rx="1" fill="currentColor"/>
-          <rect y="8" width="18" height="2" rx="1" fill="currentColor"/>
-          <rect y="14" width="18" height="2" rx="1" fill="currentColor"/>
-        </svg>
+      <button class="icon-btn" onclick="openSidebar()">
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect y="2" width="18" height="2" rx="1" fill="currentColor"/><rect y="8" width="18" height="2" rx="1" fill="currentColor"/><rect y="14" width="18" height="2" rx="1" fill="currentColor"/></svg>
       </button>
       <span class="topbar-title" id="topbar-title">New Invoice</span>
       <div style="width:36px"></div>
     </header>
 
-    <!-- ── VIEW: NEW / EDIT INVOICE ────────────────────────────── -->
+    <!-- NEW / EDIT -->
     <section class="view active" id="view-new">
       <div class="view-header">
         <h1 id="form-heading">New Invoice</h1>
@@ -77,54 +55,33 @@
           <button class="btn btn-primary" onclick="exportPDF()" id="pdf-btn">Export PDF</button>
         </div>
       </div>
-
       <div class="form-body">
-        <!-- Invoice Meta -->
+
         <div class="card">
           <div class="card-title">Invoice details</div>
           <div class="form-grid">
-            <div class="fg">
-              <label>Invoice #</label>
-              <input id="f-num" placeholder="BILL19" autocomplete="off"/>
-            </div>
-            <div class="fg">
-              <label>Status</label>
+            <div class="fg"><label>Invoice #</label><input id="f-num" placeholder="BILL19"/></div>
+            <div class="fg"><label>Status</label>
               <select id="f-status">
                 <option value="pending">Pending</option>
+                <option value="partial">Partially Paid</option>
                 <option value="paid">Paid</option>
               </select>
             </div>
-            <div class="fg">
-              <label>Issue date</label>
-              <input type="date" id="f-date"/>
-            </div>
-            <div class="fg">
-              <label>Due date</label>
-              <input type="date" id="f-due"/>
-            </div>
+            <div class="fg"><label>Issue date</label><input type="date" id="f-date"/></div>
+            <div class="fg"><label>Due date</label><input type="date" id="f-due"/></div>
           </div>
         </div>
 
-        <!-- Bill To -->
         <div class="card">
           <div class="card-title">Bill to</div>
           <div class="form-grid">
-            <div class="fg">
-              <label>Client name</label>
-              <input id="f-client-name" placeholder="e.g. NASIR"/>
-            </div>
-            <div class="fg">
-              <label>Phone</label>
-              <input id="f-client-phone" placeholder="0322 4375044" type="tel"/>
-            </div>
-            <div class="fg fg-full">
-              <label>Company / Location</label>
-              <input id="f-client-company" placeholder="e.g. SOZO Water Park"/>
-            </div>
+            <div class="fg"><label>Client name</label><input id="f-client-name" placeholder="e.g. NASIR"/></div>
+            <div class="fg"><label>Phone</label><input id="f-client-phone" placeholder="0322 4375044" type="tel"/></div>
+            <div class="fg fg-full"><label>Company / Location</label><input id="f-client-company" placeholder="e.g. SOZO Water Park"/></div>
           </div>
         </div>
 
-        <!-- Items -->
         <div class="card">
           <div class="card-title">Items</div>
           <div class="items-wrap">
@@ -138,20 +95,47 @@
             <div id="items-body"></div>
           </div>
           <button class="btn btn-ghost btn-sm add-row-btn" onclick="addRow()">＋ Add row</button>
-
           <div class="totals-area">
             <div class="total-label">Total</div>
             <div class="total-amount" id="total-display">Rs 0</div>
           </div>
         </div>
 
-        <!-- Notes -->
-        <div class="card">
-          <div class="card-title">Notes</div>
-          <textarea id="f-notes" rows="2" placeholder="Optional payment notes or remarks…"></textarea>
+        <!-- PAYMENT TRACKING — only shown when editing saved invoice -->
+        <div class="card" id="payment-card" style="display:none">
+          <div class="card-title-row">
+            <div class="card-title">Payment tracking</div>
+          </div>
+
+          <!-- Summary boxes -->
+          <div class="payment-summary" id="payment-summary"></div>
+
+          <!-- Payment history -->
+          <div id="payment-history"></div>
+
+          <!-- Add payment form -->
+          <div class="add-payment-form">
+            <div class="fg">
+              <label>Amount (Rs)</label>
+              <input type="number" id="pay-amount" placeholder="e.g. 50000" min="1"/>
+            </div>
+            <div class="fg">
+              <label>Date</label>
+              <input type="date" id="pay-date"/>
+            </div>
+            <div class="fg fg-note">
+              <label>Note (optional)</label>
+              <input type="text" id="pay-note" placeholder="e.g. Cash payment"/>
+            </div>
+            <button class="btn btn-success" onclick="addPayment()" style="margin-bottom:1px">＋ Add Payment</button>
+          </div>
         </div>
 
-        <!-- Mobile save buttons -->
+        <div class="card">
+          <div class="card-title">Notes</div>
+          <textarea id="f-notes" rows="2" placeholder="Optional notes…"></textarea>
+        </div>
+
         <div class="mobile-actions">
           <button class="btn btn-secondary btn-block" onclick="saveInvoice()">Save invoice</button>
           <button class="btn btn-primary btn-block" onclick="exportPDF()">Export PDF</button>
@@ -159,27 +143,24 @@
       </div>
     </section>
 
-    <!-- ── VIEW: ALL INVOICES ───────────────────────────────────── -->
+    <!-- ALL INVOICES -->
     <section class="view" id="view-list">
       <div class="view-header">
         <h1>All Invoices</h1>
-        <div class="view-actions">
-          <input class="search-input" id="search-input" placeholder="Search…" oninput="filterList()"/>
-        </div>
+        <input class="search-input" id="search-input" placeholder="Search…" oninput="filterList()"/>
       </div>
       <div id="list-body" class="list-body"></div>
     </section>
 
-    <!-- ── VIEW: DASHBOARD ─────────────────────────────────────── -->
+    <!-- DASHBOARD -->
     <section class="view" id="view-dashboard">
       <div class="view-header"><h1>Dashboard</h1></div>
       <div class="stats-grid" id="stats-grid"></div>
       <div class="card" style="margin-top:20px">
-        <div class="card-title">Recent activity</div>
+        <div class="card-title">Pending / Partial payments</div>
         <div id="dash-recent"></div>
       </div>
     </section>
-
   </main>
 </div>
 
