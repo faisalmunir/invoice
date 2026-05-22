@@ -20,17 +20,7 @@ const db = {
 };
 db.inv.ensureIndex({ fieldName: 'createdAt' });
 
-// ─── Seed ─────────────────────────────────────────────────────────────────────
-(async () => {
-  if (await db.inv.count({}) === 0) {
-    await db.inv.insert({
-      _id:'demo1', num:'BILL18', date:'2026-05-16', due:'2026-05-23',
-      status:'pending', client_name:'NASIR', client_phone:'0322 4375044',
-      client_company:'SOZO Water Park', notes:'', createdAt: Date.now() - 86400000
-    });
-    await db.items.insert({ invoiceId:'demo1', sortOrder:0, qty:44, description:'Life Jacket Repairing', rate:450 });
-  }
-})();
+// No seed data — real invoices only. DB files persist via Railway Volume mounted at DB_DIR.
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 const genId = () => 'inv_' + Date.now() + '_' + Math.random().toString(36).slice(2,7);
