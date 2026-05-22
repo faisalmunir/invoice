@@ -55,9 +55,16 @@ function addDays(d, n) { const dt = new Date(d); dt.setDate(dt.getDate() + n); r
 function setDefaultDates() { document.getElementById('f-date').value = today(); document.getElementById('f-due').value = addDays(today(), 7); }
 
 function nextNum() {
-  let max = 17;
-  allInvoices.forEach(inv => { const n = parseInt((inv.num||'').replace(/\D/g,'')); if (n > max) max = n; });
-  const year = new Date().getFullYear(); return 'HC-' + year + '-' + String(max + 1).padStart(3, '0');
+  const year = new Date().getFullYear();
+  let max = 0;
+  allInvoices.forEach(inv => {
+    const match = (inv.num||'').match(/^HC-(\d{4})-(\d+)$/);
+    if (match && parseInt(match[1]) === year) {
+      const n = parseInt(match[2]);
+      if (n > max) max = n;
+    }
+  });
+  return 'HC-' + year + '-' + String(max + 1).padStart(3, '0');
 }
 
 function resetForm() {
