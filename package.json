@@ -4,7 +4,7 @@
   "description": "H&CO. Invoice Management System",
   "scripts": {
     "install": "cd backend && npm install",
-    "start": "cd backend && node server.js",
+    "start": "cd backend && node server.js"
     "dev": "cd backend && npx nodemon server.js"
   }
 }
