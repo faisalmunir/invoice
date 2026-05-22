@@ -57,7 +57,7 @@ function setDefaultDates() { document.getElementById('f-date').value = today(); 
 function nextNum() {
   let max = 17;
   allInvoices.forEach(inv => { const n = parseInt((inv.num||'').replace(/\D/g,'')); if (n > max) max = n; });
-  return 'BILL' + (max + 1);
+  const year = new Date().getFullYear(); return 'HC-' + year + '-' + String(max + 1).padStart(3, '0');
 }
 
 function resetForm() {
